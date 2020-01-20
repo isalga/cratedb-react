@@ -7,16 +7,16 @@ It consist in a frontend done with [react](https://github.com/facebook/react) an
 
 You would need to run cratedb via docker using this command
 
-### `docker run -p "4200:4200" crate -Chttp.cors.enabled=true -Chttp.cors.allow-origin="*"`
+#### `docker run -p "4200:4200" crate -Chttp.cors.enabled=true -Chttp.cors.allow-origin="*"`
 
-Additionally there is a `initdb.sql` file with some code to create tables and insert data in case your database is empty. For this you will need to open the database UI panel [http://localhost:4200/](http://localhost:4200/).
+Additionally there is a `initdb.sql` file with some code to create tables and insert data in case your database is empty. For this you will need to open the database UI [http://localhost:4200/](http://localhost:4200/).
 
-for more information check [the official documentation](https://crate.io/docs/crate/tutorials/en/latest/getting-started/install-run/special/docker.html)
+(for more information check [the official documentation](https://crate.io/docs/crate/tutorials/en/latest/getting-started/install-run/special/docker.html) )
 
-and run the client with the following commands:
+Run the client with the following commands:
 
-### `cd client`
-### `yarn install`
-### `yarn start`
+#### `cd client`
+#### `yarn install`
+#### `yarn start`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
