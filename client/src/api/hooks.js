@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const api_url = `http://localhost:4200/_sql`;
+
 export const useRequestTables = () => {
   const [tables, setTables] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -10,14 +12,15 @@ export const useRequestTables = () => {
     const fetchData = async () => {
 
       setLoading(true);
-      setTables(['wardrobe', 'fridge', 'shelve']);
+      // Next line mocking how a correnct response would lock. Should be removed in final implementation
+      setTables([['wardrobe'], ['fridge'], ['shelve']]);
 
-      axios.post(`http://localhost:4200/_sql`, {
-        "stmt" : "show talbes" 
+      axios.post(api_url, {
+        "stmt" : "show tables" 
         })
         .then(res => {
             setLoading(false);
-            //setTables(res);
+            setTables(res.data.rows);
         })
         .catch(err => {
             setError(err);
@@ -39,15 +42,17 @@ export const useRequestTableRows = (table) => {
       const fetchData = async () => {
   
         setLoading(true);
-        setRows(['red tshirt', 'black tshirt', 'jeans', 'sweatpants', 'black dress']);
+        // Next line mocking how a correnct response would lock. Should be removed in final implementation
+        setRows([[1,'red tshirt'], [2,'black tshirt'], [3,'jeans'], [4,'sweatpants'], [5,'black dress']]);
   
-        axios.post(`http://localhost:4200/_sql`, { "stmt" : `select * from ${table}` })
+        axios.post(api_url, {
+          "stmt" : `select * from ${table}`
+          })
           .then(res => {
               setLoading(false);
-              //setRows(res);
+              setRows(res.data.rows);
           })
           .catch(err => {
-              console.log(err)
             setError(err);
             setLoading(false);
           })

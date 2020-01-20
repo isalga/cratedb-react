@@ -25,8 +25,8 @@ const App = () => {
               <Link to={ROOT_PATH}>/</Link>
             </li>
             { tables && tables.map(name => (
-              <li key={`nav-${name}`}>
-                <Link to={ITEMS_PATH.replace(':tableName', name)}>{name}</Link>
+              <li key={`nav-${name[0]}`}>
+                <Link to={ITEMS_PATH.replace(':tableName', name[0])}>{name[0]}</Link>
               </li>
             )) }
           </ul>

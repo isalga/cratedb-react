@@ -10,7 +10,7 @@ const Items = () => {
             <h1>Items in {tableName}</h1>
             <ul>
               { rows && rows.map(item => (
-                <li key={`item-intable-${tableName}-${item}`}>{item}</li>
+                <li key={`item-intable-${tableName}-${item[1]}`}>{item[1]}</li>
               )) }
             </ul>
           </>);
