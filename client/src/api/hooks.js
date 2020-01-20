@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-const api_url = `http://localhost:4200/_sql`;
+import { API_URL } from '../config';
 
 export const useRequestTables = () => {
   const [tables, setTables] = useState(null);
@@ -10,12 +9,9 @@ export const useRequestTables = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-
       setLoading(true);
-      // Next line mocking how a correnct response would lock. Should be removed in final implementation
-      setTables([['wardrobe'], ['fridge'], ['shelve']]);
 
-      axios.post(api_url, {
+      axios.post(API_URL, {
         "stmt" : "show tables" 
         })
         .then(res => {
@@ -27,38 +23,35 @@ export const useRequestTables = () => {
             setLoading(false);
         })
     };
-    if (!tables && !error) fetchData();
+    if (!tables) fetchData();
   });
 
   return [{ tables, loading, error }];
 };
 
-export const useRequestTableRows = (table) => {
-    const [rows, setRows] = useState(null);
+export const useRequestTableContent = (table) => {
+    const [content, setContent] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
   
     useEffect(() => {
       const fetchData = async () => {
-  
         setLoading(true);
-        // Next line mocking how a correnct response would lock. Should be removed in final implementation
-        setRows([[1,'red tshirt'], [2,'black tshirt'], [3,'jeans'], [4,'sweatpants'], [5,'black dress']]);
   
-        axios.post(api_url, {
+        axios.post(API_URL, {
           "stmt" : `select * from ${table}`
           })
           .then(res => {
               setLoading(false);
-              setRows(res.data.rows);
+              setContent(res.data);
           })
           .catch(err => {
             setError(err);
             setLoading(false);
           })
       };
-      if (!rows && !error) fetchData();
-    });
+      fetchData();
+    }, [table]);
   
-    return [{ rows, loading, error }];
+    return [{ content, loading, error }];
   };

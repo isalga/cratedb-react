@@ -9,12 +9,18 @@ import {
 import Dashboard from "./pages/Dashboard";
 import Items from "./pages/Items";
 import { useRequestTables } from './api/hooks';
-
-const ROOT_PATH = '/';
-  const ITEMS_PATH = '/items/:tableName';
+import { ROOT_PATH, ITEMS_PATH } from './config';
 
 const App = () => {
   const [{tables, loading, error }] = useRequestTables();
+
+  if (loading) {
+    return <p>loading...</p>
+  }
+
+  if (error) {
+    return <p>Error while getting database tables</p>
+  }
 
   return (
     <Router>
